@@ -1,0 +1,5 @@
+zone "mpt-01-02.xyz" {
+        type master;
+        file "/var/dns/db.mpt-01-02.xyz";
+        allow-transfer { 172.16.2.2; };
+};
