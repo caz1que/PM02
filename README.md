@@ -88,7 +88,7 @@ root@CLI1:/home/ivan# ip a
 root@CLI1:/home/ivan# sudo dhclient -v
 ```
 
----
+
 
 ## Настройка перегруженного NAT (маскарадинг)
 
@@ -391,7 +391,6 @@ Address: 192.168.2.1
 ```
 
 
----
 
 ## Настройка центра сертификации
 
@@ -514,7 +513,7 @@ root@SRV1:/home/ivan# ls -la | grep server
 -rw------- 1 ivan ivan  1679 дек 14 23:36 server-private-key.pem
 ```
 
----
+
 
 ## Установка Apache2 & Wordpress
 
@@ -798,7 +797,7 @@ mariadb> update wp_options set option_value='https://192.168.201.143' where opti
 
 **Тестим** - переходим по IP-адресу машины: https://ip-где-NAT. В итоге должна высветиться та страничка, которую мы только что сделали.
 
----
+
 
 ## Настройка проксирования на Nginx
 
