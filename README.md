@@ -535,9 +535,11 @@ root@SRV1:/home/ivan# ls -la | grep server
 root@SRV1:/home/ivan# sudo apt install apache2 php-fpm php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl php-bcmath php-imagick php-mysql php-zip libapache2-mod-php -y
 ```
 
+<br/>
 
-*Примечание. Если вы решили сразу скачать apache2 и nginx (то есть не как я, устанавливать nginx только после настройки apache2) - у вас может возникнуть конфликт портов (и nginx, и apache2, хотят работать на 80 порту), и какая-либо из служб не будет работать. Поэтому до момента настройки nginx, просто выключите его: systemctl stop nginx*
+>Примечание. Если вы решили сразу скачать apache2 и nginx (то есть не как я, устанавливать nginx только после настройки apache2) - у вас может возникнуть конфликт портов (и nginx, и apache2, хотят работать на 80 порту), и какая-либо из служб не будет работать. Поэтому до момента настройки nginx, просто выключите его: systemctl stop nginx
 
+<br/>
 
 Открываем mariadb для создания БД Wordpress.
 
