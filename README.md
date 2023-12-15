@@ -1,13 +1,12 @@
 # Исчерпывающее руководство по выполнению профессионального модуля ПМ.02 "Организация сетевого администрирования"
 
 <p align="center">
-  <img src="https://github.com/caz1que/PM02/assets/104842811/5950ccae-46ad-44f0-8e93-f51a3217a46f)https://github.com/caz1que/PM02/assets/104842811/5950ccae-46ad-44f0-8e93-f51a3217a46f"/>
+  <img src="https://github.com/caz1que/PM02/assets/104842811/5950ccae-46ad-44f0-8e93-f51a3217a46f)https://github.com/caz1que/PM02/assets/104842811/5950ccae-46ad-44f0-8e93-f51a3217a46f" style="height:400px; width:1000px;"/>
 </p>
 
-
+<br/>
 
 ## Перед началом работы
-
 
 Используемый дистрибутив на всех ВМ: **Debian 10**
 
@@ -19,7 +18,7 @@
 
 IP-адресация, хостнеймы, типы и количество адаптеров - согласно заданию (таблица адресации в конце). Для SRV1 рекомендую использовать NAT, т.к. IP-адрес не слетит при смене сети.
 
-
+<br/>
 
 ## Настройка DHCP-сервера
 
@@ -88,7 +87,7 @@ root@CLI1:/home/ivan# ip a
 root@CLI1:/home/ivan# sudo dhclient -v
 ```
 
-
+<br/>
 
 ## Настройка перегруженного NAT (маскарадинг)
 
@@ -157,7 +156,7 @@ root@SRV1:/home/ivan# sudo chmod +x /etc/network/if-pre-up.d/iptables
 
 На этом настройка перегруженного NAT окончена, поздравляю, теперь вы можете выходить со своими вопросами в тырнет
 
----
+<br/>
 
 ## Настройка VPN-соединения (GRE-туннеля)
 
@@ -228,7 +227,7 @@ root@SRV1:/home/ivan# systemctl restart networking
 
 Проверка - пинг IP-адреса туннеля соседней машины.
 
----
+<br/>
 
 ## Настройка DNS-сервера
 
@@ -390,7 +389,7 @@ Address: 192.168.2.1
 
 ```
 
-
+<br/>
 
 ## Настройка центра сертификации
 
@@ -513,7 +512,7 @@ root@SRV1:/home/ivan# ls -la | grep server
 -rw------- 1 ivan ivan  1679 дек 14 23:36 server-private-key.pem
 ```
 
-
+<br/>
 
 ## Установка Apache2 & Wordpress
 
@@ -528,6 +527,7 @@ root@SRV1:/home/ivan# ls -la | grep server
 Теперь по заданию: то, что от нас требуют использование PHP - еще не значит, что нужно писать код (мы че программисты чтоле). Wordpress по умолчанию требует наличия интерпретатора PHP, а весь код находится уже внутри Wordpress. Поэтому, забиваем на это требование хуй.
 
 ---
+<br/>
 
 Работать Wordpress будет на Apache2. Поэтому скачиваем его, интерпретатор php-fpm и остальные необходимые пакеты:
 
@@ -797,7 +797,7 @@ mariadb> update wp_options set option_value='https://192.168.201.143' where opti
 
 **Тестим** - переходим по IP-адресу машины: https://ip-где-NAT. В итоге должна высветиться та страничка, которую мы только что сделали.
 
-
+<br/>
 
 ## Настройка проксирования на Nginx
 
@@ -858,7 +858,7 @@ root@SRV1:/home/ivan# apt install nginx
 
 ![Pasted image 20231216013512](https://github.com/caz1que/PM02/assets/104842811/d63b649b-5dd7-4e72-ac19-8c57eea485db)
 
-
+<br/>
 
 ## Настройка файлового сервера Samba
 
@@ -1006,7 +1006,7 @@ Enter WORKGROUP\cli1's password:
 tree connect failed: NT_STATUS_ACCESS_DENIED
 ```
 
-
+<br/>
 
 ## Настройка мониторинга Zabbix
 
@@ -1242,7 +1242,7 @@ systemctl restart zabbix-agent
 
 ![0e982411d7dcc2c4c2c89](https://github.com/caz1que/PM02/assets/104842811/8e3e71cf-82a9-4b7f-8c56-ac5aa6e13494)
 
-
+<br/>
 
 ## Послесловие
 
