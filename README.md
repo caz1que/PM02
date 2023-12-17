@@ -143,7 +143,7 @@ root@SRV1:/home/ivan# sudo nano /etc/network/if-pre-up.d/iptables
 
 ```
 #!/bin/sh
-/sbin/iptables-restore < /etc/iptables-conf/iptables_rules.ipv4`
+/sbin/iptables-restore < /etc/iptables-conf/iptables_rules.ipv4
 ```
 
 
