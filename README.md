@@ -241,7 +241,7 @@ root@SRV2:/home/ivan# apt install bind9 -y
 ```
 
 
-После установки открываем файл конфига bind9 - **/etc/bind/named.conf.options** и заменяем все содержимое на следующее:
+После установки открываем файл конфига bind9 - **/etc/bind/named.conf.options** и заменяем все содержимое на следующее **(ЕСЛИ КОПИРУЕТЕ - ПРОБЕЛЫ ЗАМЕНЯЕТЕ НА ТАБЫ)**:
 
 ```
 options {
@@ -255,7 +255,7 @@ options {
 , где  **listen-on { 172.16.2.2; };** - IP-адрес тоннельного интерфейса SRV2.
 
 
-Затем открываем файл **/etc/bind/named.conf.local** и создаем там прямую зону:
+Затем открываем файл **/etc/bind/named.conf.local** и создаем там прямую зону **(ЕСЛИ КОПИРУЕТЕ - ПРОБЕЛЫ ЗАМЕНЯЕТЕ НА ТАБЫ)**:
 
 ```
 zone "mpt-01-02.xyz" {
@@ -312,6 +312,17 @@ mpt-01-02.xyz. IN     A      192.168.2.1
 
 ```
 root@SRV2:/home/ivan# sudo named-checkzone mpt-01-02.xyz /var/dns/db.mpt-01-02.xyz
+```
+
+А теперь обещанная неведомая хуйня. Есть такая штука - Apparmor. Что-то типа Центра безопасности Windows, который отвечает за приложения, но только в Linux. Из-за этой залупы у меня ничего не работало. Поэтому делаем следующее: открываем файл /etc/apparmor.d/usr.sbin.named и в конце файла (перед скобкой) пишем строку /var/dns/** rw,:
+
+```
+...
+# Site-specific additions and overrides. See local/README for details.
+ #include <local/usr.sbin.named>
+
+ /var/dns/** rw,
+}
 ```
 
 
