@@ -311,6 +311,8 @@ mpt-01-02.xyz. IN     A      192.168.2.1
 
 ---
 
+</br>
+
 А теперь обещанная неведомая хуйня. Есть такая штука - Apparmor. Что-то типа Центра безопасности Windows, который отвечает за приложения, но только в Linux. Из-за этой залупы у меня ничего не работало. Поэтому делаем следующее: открываем файл **/etc/apparmor.d/usr.sbin.named** и в конце файла (перед скобкой) пишем строку `/var/dns/** rw,`:
 
 ```
@@ -333,6 +335,7 @@ root@SRV2:/home/ivan# systemctl disable apparmor
 
 ---
 
+</br>
 
 Для проверки настройки файла зоны можно использовать команду **named-checkzone**:
 
@@ -351,6 +354,8 @@ root@SRV2:/home/ivan# sudo named-checkconf /etc/bind/named.conf.local
 ```
 root@SRV2:/home/ivan# cat /var/log/syslog
 ```
+
+</br>
 
 ---
 
