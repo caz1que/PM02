@@ -302,17 +302,14 @@ $TTL   604800
                         604800 )      ; Negative Cache TTL
 ;
 @      IN     NS     SRV1.
-SRV1.mpt-01-02.xyz     IN     A      172.16.2.1
-SRV2.mpt-01-02.xyz     IN     A      172.16.2.2
+SRV1.mpt-01-02.xyz.     IN     A      172.16.2.1
+SRV2.mpt-01-02.xyz.     IN     A      172.16.2.2
 mpt-01-02.xyz. IN     A      192.168.2.1
 ```
 
+</br>
 
-Для проверки настройки файла зоны можно использовать команду **named-checkzone**:
-
-```
-root@SRV2:/home/ivan# sudo named-checkzone mpt-01-02.xyz /var/dns/db.mpt-01-02.xyz
-```
+---
 
 А теперь обещанная неведомая хуйня. Есть такая штука - Apparmor. Что-то типа Центра безопасности Windows, который отвечает за приложения, но только в Linux. Из-за этой залупы у меня ничего не работало. Поэтому делаем следующее: открываем файл **/etc/apparmor.d/usr.sbin.named** и в конце файла (перед скобкой) пишем строку `/var/dns/** rw,`:
 
@@ -325,6 +322,39 @@ root@SRV2:/home/ivan# sudo named-checkzone mpt-01-02.xyz /var/dns/db.mpt-01-02.x
 }
 ```
 
+Если это не помогает, есть еще один вариант: выключить Apparmor к хуям собачьим. **После нижеприведенных двух команд надо перезагрузить ОС.**
+
+```
+root@SRV2:/home/ivan# systemctl stop apparmor
+root@SRV2:/home/ivan# systemctl disable apparmor
+```
+
+</br>
+
+---
+
+
+Для проверки настройки файла зоны можно использовать команду **named-checkzone**:
+
+```
+root@SRV2:/home/ivan# sudo named-checkzone mpt-01-02.xyz /var/dns/db.mpt-01-02.xyz
+```
+
+Для проверки файлов конфигурации можно использовать команду **named-checkconf**:
+
+```
+root@SRV2:/home/ivan# sudo named-checkconf /etc/bind/named.conf.local
+```
+
+Логи bind9 обычно хранятся по пути /var/log/syslog, в случае чего можно и их чекнуть:
+
+```
+root@SRV2:/home/ivan# cat /var/log/syslog
+```
+
+---
+
+</br>
 
 Для проверки работы DNS на CLI1 надо скачать пакет **dnsutils** (в него входит утилита nslookup):
 
@@ -344,6 +374,11 @@ Name:   mpt-01-02.xyz
 Address: 192.168.2.1
 ```
 
+</br>
+
+---
+
+</br>
 
 Также можно настроить использование DNS-сервера на SRV1 (не знаю, насколько это обязательно по заданию).
 
