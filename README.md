@@ -793,16 +793,6 @@ root@SRV1:/home/ivan# systemctl restart apache2
 ```
 
 
-Открываем mariadb и обновляем значения в БД, в которых написан IP-адрес на https://IP-где-NAT
-
-```
-root@SRV1:/home/ivan# sudo mariadb
-mariadb> use wordpress;
-mariadb> update wp_options set option_value='https://192.168.201.143' where option_name='siteurl';
-mariadb> update wp_options set option_value='https://192.168.201.143' where option_name='home';
-```
-
-
 Теперь можно попробовать перейти по IP-адресу, где NAT (с использованием https) в браузере вашей хостовой ОС. Сразу предупреждаю, Wordpress может прогрузиться не сразу.
 
 Не забудьте также либо сделать исключение для сайта в браузере (браузер будет ругаться на сертификат), либо сделать доверительные отношения с ЦС (тип их установки будет зависеть от браузера).
@@ -842,6 +832,15 @@ mariadb> update wp_options set option_value='https://192.168.201.143' where opti
 
 ![Pasted image 20231216012147](https://github.com/caz1que/PM02/assets/104842811/51aefdc1-a8b1-4383-acc6-60b0f82d4f3f)
 
+
+Возвращаемся в терминал. Открываем mariadb и обновляем значения в БД, в которых написан IP-адрес на https://IP-где-NAT
+
+```
+root@SRV1:/home/ivan# sudo mariadb
+mariadb> use wordpress;
+mariadb> update wp_options set option_value='https://192.168.201.143' where option_name='siteurl';
+mariadb> update wp_options set option_value='https://192.168.201.143' where option_name='home';
+```
 
 **Тестим** - переходим по IP-адресу машины: https://ip-где-NAT. В итоге должна высветиться та страничка, которую мы только что сделали.
 
