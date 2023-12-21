@@ -902,7 +902,7 @@ http {
 Перезагружаем службу nginx.
 
 ```
-root@SRV1:/home/ivan# apt install nginx
+root@SRV1:/home/ivan# systemctl restart nginx
 ```
 
 
