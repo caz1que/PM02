@@ -539,7 +539,7 @@ drwxrwxrwt 9 root root 4096 дек 14 23:26 ..
 Подрубаемся по SFTP с SRV2 на SRV1:
 
 ```
-root@SRV2:/tmp/keys# sftp ivan@172.16.2.2
+root@SRV2:/tmp/keys# sftp ivan@172.16.2.1
 ivan@172.16.2.1's password:
 Connected to ivan@172.16.2.1.
 sftp>
