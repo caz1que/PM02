@@ -458,7 +458,7 @@ Address: 192.168.2.1
 ```
 root@SRV2:/home/ivan# mkdir /home/ivan/keys
 root@SRV2:/home/ivan# cd /home/ivan/keys
-root@SRV2:/tmp/keys#
+root@SRV2:/home/ivan/keys#
 ```
 
 
@@ -518,7 +518,7 @@ root@SRV2:/home/ivan/keys# openssl x509 -req -in server-csr.pem -CA ca-certifica
 ```
 
 
-По итогу содержимое директории /tmp/keys должно выглядеть вот так:
+По итогу содержимое директории /home/user/keys должно выглядеть вот так:
 
 ```
 root@SRV2:/home/ivan/keys# ls -la
