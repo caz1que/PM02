@@ -957,7 +957,7 @@ root@SRV2:/home/ivan# cp /etc/samba/smb.conf /etc/samba/smb.conf.backup
 ```
 [pm_01]
 comment = pm_01 for SRV1
-path = /tmp/pm_01
+path = /home/ivan/pm_01
 browseable = yes
 read only = no
 guest ok = no
@@ -966,7 +966,7 @@ hosts allow = 172.16.2.1
 
 [pm_02]
 comment = pm_02 for SRV1
-path = /tmp/pm_02
+path = /home/ivan/pm_02
 browseable = yes
 read only = no
 guest ok = no
@@ -975,7 +975,7 @@ hosts allow = 172.16.2.1
 
 [pm_03]
 comment = pm_03 for CLI1
-path = /tmp/pm_03
+path = /home/ivan/pm_03
 browseable = yes
 read only = no
 guest ok = no
@@ -1006,18 +1006,18 @@ Retype new SMB password:
 Создаем директории pm_01, pm_02, pm_03:
 
 ```
-root@SRV2:/home/ivan# mkdir /tmp/pm_01
-root@SRV2:/home/ivan# mkdir /tmp/pm_02
-root@SRV2:/home/ivan# mkdir /tmp/pm_03
+root@SRV2:/home/ivan# mkdir /home/ivan/pm_01
+root@SRV2:/home/ivan# mkdir /home/ivan/pm_02
+root@SRV2:/home/ivan# mkdir /home/ivan/pm_03
 ```
 
 
 На всякий случай выдадим права на них _(возможно и без этого будет работать, не проверял)_:
 
 ```
-root@SRV2:/home/ivan# chown srv1:srv1 /tmp/pm_01
-root@SRV2:/home/ivan# chown srv1:srv1 /tmp/pm_02
-root@SRV2:/home/ivan# chown cli1:cli1 /tmp/pm_03
+root@SRV2:/home/ivan# chown srv1:srv1 /home/ivan/pm_01
+root@SRV2:/home/ivan# chown srv1:srv1 /home/ivan/pm_02
+root@SRV2:/home/ivan# chown cli1:cli1 /home/ivan/pm_03
 ```
 
 
