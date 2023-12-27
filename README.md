@@ -453,11 +453,11 @@ Address: 192.168.2.1
 
 В рамках данного ПМ вы не ограничены использованием либо первого, либо второго варианта. Я буду делать через openssl, вы же можете сделать через easy-rsa (как в лабах мы делали), главное, чтобы на выходе у вас получилось два файла - **сертификат сервера и закрытый ключ сервера**.
 
-Заранее создадим директорию **/tmp/keys** для хранения сертификатов и ключей, затем в нее перейдем.
+Заранее создадим директорию **/home/user/keys** для хранения сертификатов и ключей, затем в нее перейдем.
 
 ```
-root@SRV2:/home/ivan# mkdir /tmp/keys
-root@SRV2:/home/ivan# cd /tmp/keys
+root@SRV2:/home/ivan# mkdir /home/ivan/keys
+root@SRV2:/home/ivan# cd /home/ivan/keys
 root@SRV2:/tmp/keys#
 ```
 
@@ -465,14 +465,14 @@ root@SRV2:/tmp/keys#
 Создаем закрытый ключ для ЦС при помощи **openssl** (алгоритм - RSA, длина ключа - 2048 бит):
 
 ```
-root@SRV2:/tmp/keys# openssl genrsa -out ca-private-key.pem 2048
+root@SRV2:/home/ivan/keys# openssl genrsa -out ca-private-key.pem 2048
 ```
 
 
 Создаем самоподписанный сертификат для ЦС. После ввода команды вам предложат ввести данные сертификата, **БУДЬТЕ ВНИМАТЕЛЬНЫ**, Common Name должен быть такой же как и хостнейм машины (SRV2):
 
 ```
-root@SRV2:/tmp/keys# openssl req -new -x509 -key ca-private-key.pem -out ca-certificate.pem
+root@SRV2:/home/ivan/keys# openssl req -new -x509 -key ca-private-key.pem -out ca-certificate.pem
 Country Name (2 letter code) [AU]:RU
 State or Province Name (full name) [Some-State]:Moscow
 Locality Name (eg, city) []:Troparevo
@@ -486,14 +486,14 @@ Email Address []:sa50_i.o.artemov@mpt.ru
 Создаем еще один приватный ключ RSA, на этот раз для сервера.
 
 ```
-root@SRV2:/tmp/keys# openssl genrsa -out server-private-key.pem 2048
+root@SRV2:/home/ivan/keys# openssl genrsa -out server-private-key.pem 2048
 ```
 
 
 Создаем запрос на сертификат (CSR). Вас также попросят ввести данные для сертификата, пишем все также, как и в прошлом сертификате, только **Common Name на этот раз - SRV1** (в конце еще попросят Challenge password и Optional company name - на этих пунктах просто скипаем и жмем enter):
 
 ```
-root@SRV2:/tmp/keys# openssl req -new -key server-private-key.pem -out server-csr.pem
+root@SRV2:/home/ivan/keys# openssl req -new -key server-private-key.pem -out server-csr.pem
 Country Name (2 letter code) [AU]:RU
 State or Province Name (full name) [Some-State]:Moscow
 Locality Name (eg, city) []:Troparevo
@@ -507,21 +507,21 @@ Email Address []:sa50_i.o.artemov@mpt.ru
 Для хранения серийных номеров сертификатов создадим файл ca-certificate.srl следующим образом:
 
 ```
-root@SRV2:/tmp/keys# echo 01 > ca-certificate.srl
+root@SRV2:/home/ivan/keys# echo 01 > ca-certificate.srl
 ```
 
 
 Создаем сертификат сервера:
 
 ```
-root@SRV2:/tmp/keys# openssl x509 -req -in server-csr.pem -CA ca-certificate.pem -CAkey ca-private-key.pem -out server-certificate.pem
+root@SRV2:/home/ivan/keys# openssl x509 -req -in server-csr.pem -CA ca-certificate.pem -CAkey ca-private-key.pem -out server-certificate.pem
 ```
 
 
 По итогу содержимое директории /tmp/keys должно выглядеть вот так:
 
 ```
-root@SRV2:/tmp/keys# ls -la
+root@SRV2:/home/ivan/keys# ls -la
 итого 32
 drwxr-xr-x 2 root root 4096 дек 14 23:28 .
 drwxrwxrwt 9 root root 4096 дек 14 23:26 ..
@@ -539,7 +539,7 @@ drwxrwxrwt 9 root root 4096 дек 14 23:26 ..
 Подрубаемся по SFTP с SRV2 на SRV1:
 
 ```
-root@SRV2:/tmp/keys# sftp ivan@172.16.2.1
+root@SRV2:/home/ivan/keys# sftp ivan@172.16.2.1
 ivan@172.16.2.1's password:
 Connected to ivan@172.16.2.1.
 sftp>
@@ -549,9 +549,9 @@ sftp>
 Загружаем файлы на SRV1 в домашнюю директорию пользователя при помощи команды put:
 
 ```
-sftp> put /tmp/keys/server-certificate.pem /home/ivan/server-certificate.pem
+sftp> put /home/ivan/keys/server-certificate.pem /home/ivan/server-certificate.pem
 
-sftp> put /tmp/keys/server-private-key.pem /home/ivan/server-private-key.pem
+sftp> put /home/ivan/keys/server-private-key.pem /home/ivan/server-private-key.pem
 ```
 
 
@@ -1055,7 +1055,7 @@ smb: \>
 На CLI1:
 
 ```
-root@CLI1:/home/ivan# smbclient -U cli1 //172.17.2.2/pm_03
+root@CLI1:/home/ivan# smbclient -U cli1 //172.16.2.2/pm_03
 Enter WORKGROUP\cli1's password:
 Try "help" to get a list of possible commands.
 smb: \>
